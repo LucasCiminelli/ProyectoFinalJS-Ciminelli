@@ -18,12 +18,10 @@ let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
 /// funcion async, fetch.
 
 const traerProductos = async () => {
-
-  const response = await fetch("data.json"); 
+  const response = await fetch("data.json");
   const data = await response.json();
 
   data.forEach((producto) => {
-
     let contenido = document.createElement("div");
     contenido.className = "card";
     contenido.innerHTML = `
@@ -45,14 +43,12 @@ const traerProductos = async () => {
     ///// tanto si lo suma como si lo pushea, aparece un toastify confirmando que el producto fue añadido.
 
     botonComprar.addEventListener("click", () => {
-
       const repetido = carrito.some(
         (productoRepetido) => productoRepetido.id === producto.id
       );
 
       if (repetido) {
         carrito.map((productoCarrito) => {
-
           if (productoCarrito.id === producto.id) {
             productoCarrito.cantidad++;
 
@@ -100,30 +96,23 @@ const traerProductos = async () => {
     //// al mensaje "Producto no encontrado..." que inicialmente tiene display none.
 
     inputBuscador.addEventListener("keyup", (e) => {
-
       const busquedaUsuario = e.target.value.toLowerCase();
       const mensajeNoEncontrado = document.getElementById(
         "mensajeNoEncontrado"
       );
 
       contenedorProd.querySelectorAll(".card").forEach((producto) => {
-
         const nombre = producto.querySelector("h3").textContent.toLowerCase();
         const fotoRecepcion = document.querySelector(".foto-recepcion");
 
         if (nombre.includes(busquedaUsuario)) {
-
           producto.classList.remove("filtro");
           fotoRecepcion.classList.add("filtro");
-
         } else {
-
           producto.classList.add("filtro");
-
         }
 
         if (busquedaUsuario === "") {
-
           fotoRecepcion.classList.remove("filtro");
         }
 
@@ -145,7 +134,6 @@ traerProductos();
 //////////////////////////////////////-- FUNCION PINTAR CARRITO --////////////////////////////////////////////////////////
 
 const productosEnCarrito = () => {
-
   ///-- INICIALIZAR EL MODAL COMO UN INNER HTML VACIO PARA QUE NO REPITA EL PROCESO DE CREACION CADA VEZ QUE SE CLICKEE --///
   //-- CADA VEZ QUE CLICKEA BORRA TODO Y CREA TODO DE NUEVO Y LE DA DISPLAY FLEX PARA QUITAR EL DISPLAY NONE --//
 
@@ -153,7 +141,7 @@ const productosEnCarrito = () => {
   modalContainer.style.display = "flex   ";
 
   const modalHeader = document.createElement("div");
-  modalHeader.className = "modal-header light bg-light";
+  modalHeader.className = "modal-header light bg-light py-2";
   modalHeader.innerHTML = `
     <h2 class="modal-header-title">Carrito</h2>
     `;
@@ -204,7 +192,6 @@ const productosEnCarrito = () => {
 
     let botonRestar = carritoContenido.querySelector("#menos");
     botonRestar.addEventListener("click", () => {
-
       if (producto.cantidad > 1) {
         producto.cantidad--;
         productosEnCarrito();
@@ -217,7 +204,6 @@ const productosEnCarrito = () => {
 
     let botonSumar = carritoContenido.querySelector("#mas");
     botonSumar.addEventListener("click", () => {
-
       if (producto.cantidad >= 1) {
         producto.cantidad++;
         productosEnCarrito();
@@ -237,12 +223,27 @@ const productosEnCarrito = () => {
   ///////////////////////-- botonVaciarCarrito ACTUALIZA EL CONTENIDO DEL CARRITO Y EL LOCALSTORAGE --///////////////////////
 
   const carritoFooter = document.createElement("div");
-  carritoFooter.className = "carrito-footer";
-  carritoFooter.innerHTML = `
-    Total: $${totalCarrito}
-  `;
+  carritoFooter.className = "carrito-footer light bg-light";
+  carritoFooter.innerHTML = "";
 
   modalContainer.append(carritoFooter);
+
+  const totalModal = document.createElement("span");
+  totalModal.className = "total-modal";
+  totalModal.innerHTML = `
+  Total: $${totalCarrito}
+`;
+
+  carritoFooter.append(totalModal);
+
+  /////////////-- botonFinalizarCompra CREA UN DIV AL FINAL DEL FOOTER CON UN FORMULARIO PARA INGRESO DE DATOS --////////////
+  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+  const botonFinalizarCompra = document.createElement("button");
+  botonFinalizarCompra.innerHTML = `Finalizar compra  <i class="bi bi-cart-check"></i>`;
+  botonFinalizarCompra.className = "boton-finalizar btn btn-light ";
+
+  carritoFooter.append(botonFinalizarCompra);
 
   const botonVaciarCarrito = document.createElement("button");
   botonVaciarCarrito.innerHTML = `Vaciar Carrito <i class="bi bi-trash"></i>`;
@@ -256,30 +257,19 @@ const productosEnCarrito = () => {
     guardarEnLocal();
   });
 
-  /////////////-- botonFinalizarCompra CREA UN DIV AL FINAL DEL FOOTER CON UN FORMULARIO PARA INGRESO DE DATOS --////////////
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-  const botonFinalizarCompra = document.createElement("button");
-  botonFinalizarCompra.innerHTML = `Finalizar compra <i class="bi bi-cart-check"></i>`;
-  botonFinalizarCompra.className = "btn btn-light py-2 mb-1";
-
-  carritoFooter.append(botonFinalizarCompra);
-
   /////////////////////////////////-- TOMA EL DATO DE LA CLASE FORMULARIO. SI NO EXISTE LO CREA --///////////////////////////
   ///////////////////////////////-- DE ESTA MANERA EVITE  EL LOOP DE CREAR INFINITAS VECES EL FORM --////////////////////////
   /////////////////////////////////////-- SI EL CARRITO ESTÁ VACIO NO HABILITA EL FORMULARIO --//////////////////////////////
 
   botonFinalizarCompra.addEventListener("click", () => {
-
     const formularioExistente = document.querySelector(".formulario");
 
     if (!formularioExistente && carrito.length >= 1) {
-
       const flecha = document.createElement("span");
       flecha.innerHTML = `
       <span> <i class="flecha bi bi-arrow-down"></i></span>
       `;
-      carritoFooter.append(flecha);
+      modalContainer.append(flecha);
 
       const formulario = document.createElement("div");
       formulario.className =
@@ -307,18 +297,17 @@ const productosEnCarrito = () => {
             
         
         </form>
-        <button class="boton-comprar btn btn-dark mb-5"> Comprar <i class="bi bi-check2"></i> </button>
+        <button class="boton-comprar btn btn-light mb-5"> Comprar <i class="bi bi-check2"></i> </button>
     
     `;
 
-      carritoFooter.append(formulario);
+      modalContainer.append(formulario);
       formulario.scrollIntoView({ behavior: "smooth" });
     }
 
     const botonComprar = document.querySelector(".boton-comprar");
 
     botonComprar.addEventListener("click", () => {
-
       const inputEmail = document.querySelector("#inputEmail");
       const inputNombre = document.querySelector("#inputNombre");
 
@@ -337,10 +326,11 @@ const productosEnCarrito = () => {
         /// Sweet alert de exito porque la compra fue exitosa.
         Swal.fire({
           icon: "success",
-          title: `${inputNombre.value}, gracias por su compra`,
+          title: `${inputNombre.value}, se ha registrado una compra por una suma total de: $${totalCarrito}. 
+            ¡Gracias por comprar con nosotros!♥`,
           html: `Recibirá a ${inputEmail.value} un Email con los próximos pasos a seguir`,
           showConfirmButton: false,
-          timer: 4000,
+          timer: 7000,
         });
 
         vaciarCarrito();
@@ -358,11 +348,9 @@ abrirCarrito.addEventListener("click", productosEnCarrito);
 //////////////////-- Y FILTRA EL CARRITO PARA DEVOLVER TODOS LOS PRODUCTOS EXCEPTO ESE --//////////////////////////////////
 
 const eliminarProducto = (id) => {
-
   const encontrarProducto = carrito.find((producto) => producto.id === id);
 
   carrito = carrito.filter((productoId) => {
-
     return productoId !== encontrarProducto;
   });
 

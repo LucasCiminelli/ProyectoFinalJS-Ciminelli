@@ -163,10 +163,10 @@ main {
 }
 
 .total-modal {
-    font-size: 15px;
-    color: black;
-    padding-left: 20px;
-  }
+  font-size: 15px;
+  color: black;
+  padding-left: 20px;
+}
 
 .boton-finalizar {
   margin-left: 38px;
@@ -200,5 +200,3 @@ main {
 .btn-dark:hover {
   background-color: #555;
 }
-
-

@@ -1,0 +1,58 @@
+[
+    {
+      "id": 1,
+      "nombre": "Remera",
+      "precio": 3000,
+      "img": "https://media.solodeportes.com.ar/media/catalog/product/cache/7c4f9b393f0b8cb75f2b74fe5e9e52aa/1/1/111020dh3703001-11.jpg",
+      "cantidad": 1
+    },
+    {
+      "id": 2,
+      "nombre": "Pantalon",
+      "precio": 3500,
+      "img": "https://sporting.vtexassets.com/arquivos/ids/207885-800-800?v=637285413836770000&width=800&height=800&aspect=true",
+      "cantidad": 1
+    },
+    {
+      "id": 3,
+      "nombre": "Short",
+      "precio": 4500,
+      "img": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_oUbSF75d3PYqtiwCkW908VTWOa06UyJv2Q&usqp=CAU",
+      "cantidad": 1
+    },
+    {
+      "id": 4,
+      "nombre": "Medias",
+      "precio": 1000,
+      "img": "https://10burpees.com/imagenes/calcetines-largos.jpg",
+      "cantidad": 1
+    },
+    {
+      "id": 5,
+      "nombre": "Muñequeras",
+      "precio": 800,
+      "img": "https://cbdeportes.com/wp-content/uploads/2018/04/mu%C3%B1equera.balboa.negro-rosa.jpg",
+      "cantidad": 1
+    },
+    {
+      "id": 6,
+      "nombre": "Rodilleras",
+      "precio": 4000,
+      "img": "https://www.suplementosnutricionalessalta.com.ar/public/images/productos/754-rodillera-negra-7-mm-x-unidad-talle-l.jpeg",
+      "cantidad": 1
+    },
+    {
+      "id": 7,
+      "nombre": "Zapatillas",
+      "precio": 35000,
+      "img": "https://intersport.com.au/wp-content/uploads/M_DO9328_100_V1-1-550x550.jpg",
+      "cantidad": 1
+    },
+    {
+      "id": 8,
+      "nombre": "Cinturon",
+      "precio": 2000,
+      "img": "https://d3ugyf2ht6aenh.cloudfront.net/stores/898/402/products/whatsapp-image-2021-07-05-at-12-50-27-11-32c85b25432d86ec9216256700728933-640-0.webp",
+      "cantidad": 1
+    }
+  ]
